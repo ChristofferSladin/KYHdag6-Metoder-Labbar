@@ -8,14 +8,94 @@ namespace KYHdag6_Metoder_Labbar
 {
     internal class MetoderLabbar
     {
+        public string Translate(string input)
+        {
+            input = input.Trim();
+            
+            string toBeTranslated = "";
+
+            foreach (char c in input)
+            {
+                if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'å' || c == 'ä' || c == 'ö')
+                {
+                    toBeTranslated += c;
+                }
+                else if (c ==' ')
+                {
+                    toBeTranslated += c;
+                }
+                else
+                    toBeTranslated = toBeTranslated + c + 'o' + c;
+            }
+            string translatedString = toBeTranslated.ToLower();
+
+            return translatedString;
+        }
+        public void Lab8()
+        {
+            Console.WriteLine("Skriv en text som ska översättas till rövarspråket");
+            string input = Console.ReadLine();
+
+            string translatedString = Translate(input);
+            Console.WriteLine(translatedString);
+
+        }
+
+
+        public bool VocalOrConsonant(char checkThisChar)
+        {
+            bool result;
+            char lowerchar = checkThisChar; // Kan inte göra char till lowercase med .ToLower();     Varför inte???
+
+            if (lowerchar == 'a' || lowerchar == 'e' || lowerchar == 'i' || lowerchar == 'o' || lowerchar == 'u' || lowerchar == 'å' || lowerchar == 'ä' || lowerchar == 'ö')
+            {
+                result = true;
+            }
+            else
+                result = false;
+
+            return result;
+        }
+        public void Lab7()
+        {
+            Console.WriteLine("Mata in en bokstav");
+            char checkThisChar = char.Parse(Console.ReadLine());
+
+            bool result = VocalOrConsonant(checkThisChar);
+
+            Console.WriteLine(result);
+        }
+
+        int CalculateTaxesOnSalary(int salary)
+        {
+            if (salary >= 30000)
+            {
+                salary = Convert.ToInt32(salary * 0.33f);
+            }
+            else if (salary < 15000)
+            {
+                salary = Convert.ToInt32(salary * 0.12f);
+            }
+            else if (salary < 30000 && salary > 15000)
+            {
+                salary = Convert.ToInt32(salary * 0.28f);
+            }
+            return salary;
+        }
+
+        public void Lab6()
+        {
+            Console.WriteLine("Ange din lön");
+            int salary = int.Parse(Console.ReadLine());
+
+            int calculatedSalary = CalculateTaxesOnSalary(salary);
+            Console.WriteLine($"Skatten på din lön är: {calculatedSalary}");
+        }
+
         public string FindLongestWord(string[] listOfStrings)
         {
-            for (int i = 0; i < listOfStrings.Length; i++)
-            {
-                listOfStrings[i].Max();
-            }
-
-            return
+            string longest = listOfStrings.OrderByDescending(s => s.Length).First();
+            return longest.ToString();
         }
         public void Lab5()
         {
@@ -23,9 +103,15 @@ namespace KYHdag6_Metoder_Labbar
             int antalStrings = int.Parse(Console.ReadLine());
 
             string[] listOfStrings = new string[antalStrings];
-            FindLongestWord(listOfStrings);
 
+            Console.WriteLine("Skriv strängarna du vill lägga in i fältet");
+            for (int i = 0; i < listOfStrings.Length; i++)
+            {
+                listOfStrings[i] = Console.ReadLine();
+            }
 
+            string longestString = FindLongestWord(listOfStrings);
+            Console.WriteLine(longestString);
 
         }
         public bool OfAge(int age)
@@ -59,7 +145,7 @@ namespace KYHdag6_Metoder_Labbar
         public void Lab3()
         {
             Console.WriteLine("Ange en summa");
-            int  summa = int.Parse(Console.ReadLine());
+            int summa = int.Parse(Console.ReadLine());
 
             float klarSumma = Moms(summa);
 
@@ -99,7 +185,12 @@ namespace KYHdag6_Metoder_Labbar
             //Lab1();
             //Lab2();
             //Lab3();
-            Lab4();
+            //Lab4();
+            //Lab5();
+            //Lab6();
+            //Lab7();
+            Lab8();
+
         }
     }
 }
